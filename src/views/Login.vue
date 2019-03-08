@@ -25,7 +25,7 @@
               description="Is nesesary yourś username"
             >
               <b-form-input
-                id="exampleInput1"
+                id="usernameId"
                 type="text"
                 v-model="form.username"
                 required
@@ -33,12 +33,12 @@
               />
             </b-form-group>
             <b-form-group
-              id="exampleInputGroup2"
-              label="Your Name:"
-              label-for="exampleInput2"
+              id="password"
+              label="Your password:"
+              label-for="password"
             >
               <b-form-input
-                id="exampleInput2"
+                id="passwordId"
                 type="password"
                 v-model="form.password"
                 required
