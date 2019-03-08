@@ -2,13 +2,17 @@
   <div class="login pt-5">
     <b-form
       @submit="onSubmit"
-      @reset="onReset" 
+      @reset="onReset"
       class="mx-auto w-25 p-15 mb-2 bg-light"
     >
       <b-container class="bv-example-row pt-5 pb-5 border border-info">
         <b-row class="text-center">
           <b-col cols="12">
-            <b-img v-bind="mainProps" src="../assets/logo-skyangel.png" alt="logo" />
+            <b-img
+              v-bind="logoProps"
+              src="../assets/logo-skyangel.png"
+              alt="logo"
+            />
             <Login loggedStatus="Loging" />
           </b-col>
         </b-row>
@@ -28,14 +32,19 @@
                 placeholder="Username"
               />
             </b-form-group>
-            <b-form-group id="exampleInputGroup2" label="Your Name:" label-for="exampleInput2">
+            <b-form-group
+              id="exampleInputGroup2"
+              label="Your Name:"
+              label-for="exampleInput2"
+            >
               <b-form-input
                 id="exampleInput2"
                 type="password"
                 v-model="form.password"
                 required
-                placeholder="Enter you password" />
-            </b-form-group>            
+                placeholder="Enter you password"
+              />
+            </b-form-group>
             <span class="badge">
               <b-button type="submit" variant="primary" span>login</b-button>
             </span>
@@ -53,31 +62,31 @@ import Login from "@/components/Login.vue";
 
 export default {
   name: "login",
-  data () {
-    return{
+  data() {
+    return {
       form: {
-          username: '',
-          password: ''
-        },
-        mainProps: {width: 75, height: 90 }
-    }
-  },  
+        username: "",
+        password: ""
+      },
+      logoProps: { width: 75, height: 90 }
+    };
+  },
   components: {
     Login
   },
   methods: {
     onSubmit(evt) {
-      evt.preventDefault()
-      alert(JSON.stringify(this.form)+'route: '+ this.$route.path)
-      this.$router.push({name: 'home'})
+      evt.preventDefault();
+      alert(JSON.stringify(this.form));
+      this.$router.push({ name: "home" });
     },
     onReset(evt) {
-      evt.preventDefault()
+      evt.preventDefault();
       /* Reset our form values */
-      this.form.username = ''
-      this.form.password = ''
+      this.form.username = "";
+      this.form.password = "";
       /* Trick to reset/clear native browser form validation state */
-      this.show = false
+      this.show = false;
       this.$nextTick(() => {
         this.show = true;
       });
