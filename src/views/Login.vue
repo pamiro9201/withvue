@@ -27,7 +27,7 @@
               <b-form-input
                 id="usernameId"
                 type="text"
-                v-model="form.username"
+                v-model="form.user"
                 required
                 placeholder="Username"
               />
@@ -40,11 +40,14 @@
               <b-form-input
                 id="passwordId"
                 type="password"
-                v-model="form.password"
+                v-model="form.psw"
                 required
                 placeholder="Enter you password"
               />
             </b-form-group>
+            <p>
+              {{ message }}
+            </p>
             <span class="badge">
               <b-button type="submit" variant="primary" span>login</b-button>
             </span>
@@ -57,16 +60,17 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import axios from 'axios';
 import Login from "@/components/Login.vue";
 
 export default {
   name: "login",
   data() {
     return {
+      message: " ",
       form: {
-        username: "",
-        password: ""
+        user: "",
+        psw: ""
       },
       logoProps: { width: 75, height: 90 }
     };
@@ -77,14 +81,28 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      alert(JSON.stringify(this.form));
-      this.$router.push({ name: "home" });
+      //alert(JSON.stringify(this.form));
+      axios
+        .post(
+          "http://localhost/login/index.php/Auth_controller/login",
+          JSON.stringify(this.form)
+        )
+        .then(response => {
+          alert(response.data.jwt);
+          this.$store.commit('set_jwt', response.data.jwt)
+          this.$router.push({ name: "home" });
+        })
+        .catch(error => {
+          this.message= error.response.data.message;
+          this.$store.commit('set_sessionStatus', error.response.data.message);
+          alert(this.$store.getters.sessionStatus);
+      });      
     },
     onReset(evt) {
       evt.preventDefault();
       /* Reset our form values */
-      this.form.username = "";
-      this.form.password = "";
+      this.form.user = "";
+      this.form.psw = "";
       /* Trick to reset/clear native browser form validation state */
       this.show = false;
       this.$nextTick(() => {

@@ -48,7 +48,8 @@ export default {
           this.nav_item= response.data.nav_items;
         })
         .catch(error => {
-          console.log(error);
+          alert(console.log(error.response));
+          //console.log(error);
         });
     },
     set_currentPage(ask) {

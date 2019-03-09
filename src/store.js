@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     sessionStatus: "nologged",
-    currentPage: "login"
+    currentPage: "login",
+    jwt: ""
   },
   mutations: {
     change(state, currentPage){
@@ -14,11 +15,15 @@ export default new Vuex.Store({
     },
     set_sessionStatus(state, sessionStatus){
       state.sessionStatus= sessionStatus 
+    },
+    set_jwt(state, jwt){
+      state.jwt= jwt
     }
   },
   getters:{
     sessionStatus: state => state.sessionStatus,
-    currentPage: state => state.currentPage
+    currentPage: state => state.currentPage,
+    currentjwt: state => state.jwt
   },
   actions: {}
 });
